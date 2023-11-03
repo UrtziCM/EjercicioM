@@ -4,7 +4,7 @@
 /**
  * 
  */
-module EjercicioL {
+module EjercicioM {
 	requires java.sql;
 	requires javafx.graphics;
 	requires javafx.fxml;
