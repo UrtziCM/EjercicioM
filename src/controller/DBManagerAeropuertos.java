@@ -293,4 +293,22 @@ public class DBManagerAeropuertos {
 		stmt.executeUpdate(sql);
 		conexion.closeConexion();
 	}
+	public boolean isLoginCorrect(String user, String pass) {
+		try {
+		conexion = new ConnectionDB();
+		Statement stmt;
+			stmt = conexion.getConexion().createStatement();
+			String sql = "SELECT * FROM usuarios WHERE usuario='" + user + "' AND password='" + pass+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			if (rs.next())
+				return true;
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			conexion.closeConexion();
+		}
+		return false;
+	}
 }
