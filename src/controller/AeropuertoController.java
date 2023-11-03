@@ -3,7 +3,6 @@ package controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,9 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import model.*;
 
 public class AeropuertoController {
@@ -82,6 +80,11 @@ public class AeropuertoController {
 		numCol.setCellValueFactory(new PropertyValueFactory<>("numero"));
 
 		gestordb = new DBManagerAeropuertos();
+		tablaAeropuertos.setOnMouseClicked(e -> {
+			if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+				infoAeropuerto(null);
+			}
+		});
 		tablaAeropuertos.setItems(gestordb.cargarAeropuertosPublicos());
 		for (int i = 0; i <= 1; i++) {
 			updateTable(null);
