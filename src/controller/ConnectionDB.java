@@ -15,8 +15,7 @@ public class ConnectionDB {
 	public ConnectionDB() throws SQLException {
 		prop = new Properties();
 		try {
-			prop.load(new FileInputStream(
-					new File(this.getClass().getResource("/properties/secret.properties").getPath())));
+			prop.load(new FileInputStream(new File(this.getClass().getResource("/properties/secret.properties").getPath())));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
