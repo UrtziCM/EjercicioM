@@ -14,8 +14,10 @@ public class MainAeropuertoApplication extends Application {
     public void start(Stage stage) {
 		try {
 			Parent root = FXMLLoader.load(this.getClass().getResource("/fxml/listadoAeropuertos.fxml"));
+			
 	    	Scene scene = new Scene( root );
-	    	
+	    	scene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
+
 	        stage.setTitle("PERSONAS");
 	        stage.setScene(scene);
 	        stage.setResizable(false);
