@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -62,6 +64,9 @@ public class AeropuertoController {
 
 	@FXML
 	private ToggleGroup tipoToggleGroup;
+	
+    @FXML
+    private TextField filterTxtf;
 
 	private boolean leyendoPublicos;
 	private DBManagerAeropuertos gestordb;
@@ -85,6 +90,17 @@ public class AeropuertoController {
 				infoAeropuerto(null);
 			}
 		});
+		/* Añadimos un Listener al texto de el textfield para ejecutarlo por cada carácter introducido*/
+    	filterTxtf.textProperty().addListener(e -> {
+    		/* Creamos una FilteredList con los datos de la tabla */
+    		ObservableList<Aeropuerto> data =(leyendoPublicos)?gestordb.cargarAeropuertosPublicos():gestordb.cargarAeropuertosPrivados();
+    		FilteredList<Aeropuerto> filteredData = new FilteredList<Aeropuerto>(data);
+    		/* Establecemos la regla del filtro: Si no contiene el texto en el textfield no se muestra */
+    		filteredData.setPredicate(s -> s.getNombre().contains(filterTxtf.getText()));
+    		/* Ordenamos la lista con una SortedList*/
+    		SortedList<Aeropuerto> filteredSortedData = new SortedList<Aeropuerto>(filteredData);
+    		tablaAeropuertos.setItems(filteredSortedData); // Añadimos la lista ordenada a la tabla
+    	});;
 		tablaAeropuertos.setItems(gestordb.cargarAeropuertosPublicos());
 		for (int i = 0; i <= 1; i++) {
 			updateTable(null);
